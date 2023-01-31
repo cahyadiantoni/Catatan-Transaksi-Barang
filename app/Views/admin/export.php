@@ -57,8 +57,9 @@
           <th>Perusahaan</th>
           <th>Barang</th>
           <th>QTY</th>
-          <th>QTY2</th>
           <th>Satuan</th>
+          <th>QTY2</th>
+          <th>Satuan2</th>
           <th>Harga</th>
           <th>Harga2</th>
           <th>Total</th>
@@ -69,15 +70,99 @@
         <?php $no = 1;
         $total = 0.0;
         $total2 = 0.0;
-        $totalQty = 0.0;
-        $totalQty2 = 0.0;
-        $satuan = "KG";
+        $KG = 0;
+        $Gram = 0;
+        $Ton = 0;
+        $Liter = 0;
+        $PCS = 0;
+        $LOT = 0;
+        $TRUK = 0;
+        $KARUNG = 0;
+        $DRUM = 0;
+        $RIT = 0;
+        $totalQtyKG = 0.0;
+        $totalQty2KG = 0.0;
+        $totalQtyGram = 0.0;
+        $totalQty2Gram = 0.0;
+        $totalQtyTon = 0.0;
+        $totalQty2Ton = 0.0;
+        $totalQtyLiter = 0.0;
+        $totalQty2Liter = 0.0;
+        $totalQtyPCS = 0.0;
+        $totalQty2PCS = 0.0;
+        $totalQtyLOT = 0.0;
+        $totalQty2LOT = 0.0;
+        $totalQtyTRUK = 0.0;
+        $totalQty2TRUK = 0.0;
+        $totalQtyKARUNG = 0.0;
+        $totalQty2KARUNG = 0.0;
+        $totalQtyDRUM = 0.0;
+        $totalQty2DRUM = 0.0;
+        $totalQtyRIT = 0.0;
+        $totalQty2RIT = 0.0;
         foreach ($datalaporan as $row) : $total += floatval($row->total_bayar);
           $total2 += floatval($row->total_bayar2);
-          $totalQty += floatval($row->jumlah);
-          $totalQty2 += floatval($row->jumlah2);
-          if ($row->qty != null) {
-            $satuan = $row->qty;
+          if ($row->qty == "KG") {
+            $totalQtyKG += floatval($row->jumlah);
+            $KG = 1;
+          }else if ($row->qty == "Gram") {
+            $totalQtyGram += floatval($row->jumlah);
+            $Gram = 1;
+          }else if ($row->qty == "Ton") {
+            $totalQtyTon += floatval($row->jumlah);
+            $Ton = 1;
+          }else if ($row->qty == "Liter") {
+            $totalQtyLiter += floatval($row->jumlah);
+            $Liter = 1;
+          }else if ($row->qty == "PCS") {
+            $totalQtyPCS += floatval($row->jumlah);
+            $PCS = 1;
+          }else if ($row->qty == "LOT") {
+            $totalQtyLOT += floatval($row->jumlah);
+            $LOT = 1;
+          }else if ($row->qty == "TRUK") {
+            $totalQtyTRUK += floatval($row->jumlah);
+            $TRUK = 1;
+          }else if ($row->qty == "KARUNG") {
+            $totalQtyKARUNG += floatval($row->jumlah);
+            $KARUNG = 1;
+          }else if ($row->qty == "DRUM") {
+            $totalQtyDRUM += floatval($row->jumlah);
+            $DRUM = 1;
+          }else if ($row->qty == "RIT") {
+            $totalQtyRIT += floatval($row->jumlah);
+            $RIT = 1;
+          }
+          if ($row->qty2 == "KG") {
+            $totalQty2KG += floatval($row->jumlah2);
+            $KG = 1;
+          }else if ($row->qty2 == "Gram") {
+            $totalQty2Gram += floatval($row->jumlah2);
+            $Gram = 1;
+          }else if ($row->qty2 == "Ton") {
+            $totalQty2Ton += floatval($row->jumlah2);
+            $Ton = 1;
+          }else if ($row->qty2 == "Liter") {
+            $totalQty2Liter += floatval($row->jumlah2);
+            $Liter = 1;
+          }else if ($row->qty2 == "PCS") {
+            $totalQty2PCS += floatval($row->jumlah2);
+            $PCS = 1;
+          }else if ($row->qty2 == "LOT") {
+            $totalQty2LOT += floatval($row->jumlah2);
+            $LOT = 1;
+          }else if ($row->qty2 == "TRUK") {
+            $totalQty2TRUK += floatval($row->jumlah2);
+            $TRUK = 1;
+          }else if ($row->qty2 == "KARUNG") {
+            $totalQty2KARUNG += floatval($row->jumlah2);
+            $KARUNG = 1;
+          }else if ($row->qty2 == "DRUM") {
+            $totalQty2DRUM += floatval($row->jumlah2);
+            $DRUM = 1;
+          }else if ($row->qty2 == "RIT") {
+            $totalQty2RIT += floatval($row->jumlah2);
+            $RIT = 1;
           }
         ?>
           <tr>
@@ -88,8 +173,9 @@
             <td><?= $row->nama_perusahaan ?></td>
             <td><?= $row->nama_barang ?></td>
             <td><?= $row->jumlah ?></td>
-            <td><?= $row->jumlah2 ?></td>
             <td><?= $row->qty ?></td>
+            <td><?= $row->jumlah2 ?></td>
+            <td><?= $row->qty2 ?></td>
             <td><?= "Rp. " . number_format($row->harga, 0, ',', '.'); ?></td>
             <td><?= "Rp. " . number_format($row->harga2, 0, ',', '.'); ?></td>
             <td><?= "Rp. " . number_format($row->total_bayar, 0, ',', '.'); ?></td>
@@ -104,13 +190,167 @@
         <td>
           <h7>TotalQty : </h7>
         </td>
-        <td>
-          <h7><?= $totalQty . " " . $satuan ?></h7>
+        <td colspan="2">
+          <?php 
+            if($KG == 1){
+          ?>
+              <h7><?= $totalQtyKG . " KG" ?></h7>  
+          <?php 
+            }
+          ?>
+          <?php 
+            if($Gram == 1){
+          ?>
+              <hr>
+              <h7><?= $totalQtyGram . " Gram" ?></h7>  
+          <?php 
+            }
+          ?>
+          <?php 
+            if($Ton == 1){
+          ?>
+              <hr>
+              <h7><?= $totalQtyTon . " Ton" ?></h7>  
+          <?php 
+            }
+          ?>
+          <?php 
+            if($Liter == 1){
+          ?>
+              <hr>
+              <h7><?= $totalQtyLiter . " Liter" ?></h7>  
+          <?php 
+            }
+          ?>
+          <?php 
+            if($PCS == 1){
+          ?>
+              <hr>
+              <h7><?= $totalQtyPCS . " PCS" ?></h7>  
+          <?php 
+            }
+          ?>
+          <?php 
+            if($LOT == 1){
+          ?>
+              <hr>
+              <h7><?= $totalQtyLOT . " LOT" ?></h7>  
+          <?php 
+            }
+          ?>
+          <?php 
+            if($TRUK == 1){
+          ?>
+              <hr>
+              <h7><?= $totalQtyTRUK . " TRUK" ?></h7>  
+          <?php 
+            }
+          ?>
+          <?php 
+            if($KARUNG == 1){
+          ?>
+              <hr>
+              <h7><?= $totalQtyKARUNG . " KARUNG" ?></h7>  
+          <?php 
+            }
+          ?>
+          <?php 
+            if($DRUM == 1){
+          ?>
+              <hr>
+              <h7><?= $totalQtyDRUM . " DRUM" ?></h7>  
+          <?php 
+            }
+          ?>
+          <?php 
+            if($RIT == 1){
+          ?>
+              <h7><?= $totalQtyRIT . " RIT" ?></h7>  
+          <?php 
+            }
+          ?>
         </td>
-        <td>
-          <h7><?= $totalQty2 . " " . $satuan ?></h7>
+        <td colspan="2">
+        <?php 
+            if($KG == 1){
+          ?>
+              <h7><?= $totalQty2KG . " KG" ?></h7>  
+          <?php 
+            }
+          ?>
+          <?php 
+            if($Gram == 1){
+          ?>
+              <hr>
+              <h7><?= $totalQty2Gram . " Gram" ?></h7>  
+          <?php 
+            }
+          ?>
+          <?php 
+            if($Ton == 1){
+          ?>
+              <hr>
+              <h7><?= $totalQty2Ton . " Ton" ?></h7>  
+          <?php 
+            }
+          ?>
+          <?php 
+            if($Liter == 1){
+          ?>
+              <hr>
+              <h7><?= $totalQty2Liter . " Liter" ?></h7>  
+          <?php 
+            }
+          ?>
+          <?php 
+            if($PCS == 1){
+          ?>
+              <hr>
+              <h7><?= $totalQty2PCS . " PCS" ?></h7>  
+          <?php 
+            }
+          ?>
+          <?php 
+            if($LOT == 1){
+          ?>
+              <hr>
+              <h7><?= $totalQty2LOT . " LOT" ?></h7>  
+          <?php 
+            }
+          ?>
+          <?php 
+            if($TRUK == 1){
+          ?>
+              <hr>
+              <h7><?= $totalQty2TRUK . " TRUK" ?></h7>  
+          <?php 
+            }
+          ?>
+          <?php 
+            if($KARUNG == 1){
+          ?>
+              <hr>
+              <h7><?= $totalQty2KARUNG . " KARUNG" ?></h7>  
+          <?php 
+            }
+          ?>
+          <?php 
+            if($DRUM == 1){
+          ?>
+              <hr>
+              <h7><?= $totalQty2DRUM . " DRUM" ?></h7>  
+          <?php 
+            }
+          ?>
+          <?php 
+            if($RIT == 1){
+          ?>
+              <h7><?= $totalQty2RIT . " RIT" ?></h7>  
+          <?php 
+            }
+          ?>
         </td>
-        <td colspan="3">
+        <td colspan="2">
           <h7>Total Harga : </h7>
         </td>
         <td>
